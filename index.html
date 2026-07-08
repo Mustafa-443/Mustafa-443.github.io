@@ -1,0 +1,964 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mustafa Ibrahim | IT Portfolio</title>
+
+<style>
+:root{
+  --navy:#0F172A;
+  --navy2:#111827;
+  --blue:#2563EB;
+  --cyan:#38BDF8;
+  --green:#10B981;
+  --text:#F8FAFC;
+  --muted:#CBD5E1;
+  --glass:rgba(255,255,255,.10);
+  --border:rgba(255,255,255,.18);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  background:var(--navy);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(37,99,235,.45), transparent 28%),
+    radial-gradient(circle at 85% 15%, rgba(56,189,248,.25), transparent 25%),
+    radial-gradient(circle at 70% 80%, rgba(16,185,129,.20), transparent 30%);
+  z-index:-2;
+}
+
+.animated-bg{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  overflow:hidden;
+}
+.blob{
+  position:absolute;
+  width:360px;
+  height:360px;
+  border-radius:50%;
+  filter:blur(80px);
+  opacity:.45;
+  animation:float 12s ease-in-out infinite alternate;
+}
+.blob.one{background:#2563EB;left:-80px;top:90px}
+.blob.two{background:#38BDF8;right:-120px;top:180px;animation-delay:2s}
+.blob.three{background:#10B981;left:40%;bottom:-150px;animation-delay:4s}
+
+@keyframes float{
+  from{transform:translateY(0) translateX(0) scale(1)}
+  to{transform:translateY(-60px) translateX(70px) scale(1.15)}
+}
+
+nav{
+  position:fixed;
+  top:18px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(1100px,92%);
+  padding:14px 22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(15,23,42,.65);
+  border:1px solid var(--border);
+  backdrop-filter:blur(18px);
+  border-radius:18px;
+  z-index:10;
+  box-shadow:0 20px 45px rgba(0,0,0,.25);
+}
+nav a{
+  color:var(--muted);
+  text-decoration:none;
+  margin-left:18px;
+  font-size:14px;
+}
+nav a:hover{color:white}
+.logo{font-weight:800;color:white}
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:120px 20px 70px;
+}
+.hero-card{
+  width:min(1000px,94%);
+  padding:70px 34px;
+  background:linear-gradient(135deg,rgba(255,255,255,.14),rgba(255,255,255,.06));
+  border:1px solid var(--border);
+  border-radius:34px;
+  backdrop-filter:blur(24px);
+  box-shadow:0 30px 90px rgba(0,0,0,.45);
+  animation:fadeUp 1.1s ease forwards;
+}
+.hero h1{
+  font-size:clamp(46px,8vw,88px);
+  line-height:.95;
+  margin:0 0 18px;
+  letter-spacing:-3px;
+}
+.gradient-text{
+  background:linear-gradient(90deg,#fff,#60A5FA,#38BDF8);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+.hero p{
+  max-width:760px;
+  margin:18px auto;
+  color:var(--muted);
+  font-size:20px;
+  line-height:1.7;
+}
+.hero-actions{margin-top:34px}
+.btn{
+  display:inline-block;
+  padding:15px 26px;
+  margin:8px;
+  border-radius:14px;
+  color:white;
+  text-decoration:none;
+  font-weight:800;
+  background:linear-gradient(135deg,#2563EB,#38BDF8);
+  box-shadow:0 12px 28px rgba(37,99,235,.35);
+}
+.btn.secondary{
+  background:rgba(255,255,255,.10);
+  border:1px solid var(--border);
+}
+
+section{
+  width:min(1100px,92%);
+  margin:0 auto;
+  padding:70px 0;
+}
+h2{
+  font-size:36px;
+  margin-bottom:22px;
+}
+.glass-card{
+  background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.05));
+  border:1px solid var(--border);
+  border-radius:26px;
+  padding:28px;
+  backdrop-filter:blur(20px);
+  box-shadow:0 20px 50px rgba(0,0,0,.28);
+  margin:18px 0;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
+}
+.skill,.project,.cert{
+  transition:.35s ease;
+}
+.skill:hover,.project:hover,.cert:hover{
+  transform:translateY(-8px);
+  border-color:rgba(96,165,250,.55);
+}
+.tag{
+  display:inline-block;
+  padding:9px 14px;
+  margin:6px 6px 0 0;
+  background:rgba(37,99,235,.22);
+  border:1px solid rgba(96,165,250,.35);
+  border-radius:999px;
+  color:#DBEAFE;
+}
+.stat{
+  text-align:center;
+  padding:32px 18px;
+}
+.stat strong{
+  display:block;
+  font-size:42px;
+  color:#38BDF8;
+}
+.timeline{
+  border-left:2px solid rgba(96,165,250,.4);
+  padding-left:24px;
+}
+.timeline .glass-card{position:relative}
+.timeline .glass-card::before{
+  content:"";
+  position:absolute;
+  left:-36px;
+  top:28px;
+  width:16px;
+  height:16px;
+  background:#38BDF8;
+  border-radius:50%;
+  box-shadow:0 0 20px #38BDF8;
+}
+footer{
+  padding:45px 20px;
+  text-align:center;
+  color:#94A3B8;
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(36px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@media(max-width:700px){
+  nav{display:none}
+  .hero-card{padding:50px 22px}
+}
+
+html{scroll-behavior:smooth}
+.reveal{opacity:0;transform:translateY(40px);transition:all .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.progress-wrap{margin:18px 0}
+.progress-title{margin-bottom:6px;font-weight:700}
+.bar{height:12px;background:rgba(255,255,255,.12);border-radius:999px;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,#2563EB,#38BDF8);transition:width 2s ease}
+.cert-card{position:relative;overflow:hidden}
+.cert-card::after{
+content:"";
+position:absolute;
+inset:-100%;
+background:linear-gradient(120deg,transparent,rgba(255,255,255,.18),transparent);
+animation:shine 4s linear infinite;
+}
+@keyframes shine{
+from{transform:translateX(-100%)}
+to{transform:translateX(100%)}
+}
+
+
+.floating-social{
+  position:fixed;
+  right:22px;
+  top:50%;
+  transform:translateY(-50%);
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  z-index:20;
+}
+.social-icon{
+  width:52px;
+  height:52px;
+  display:grid;
+  place-items:center;
+  border-radius:16px;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.18);
+  backdrop-filter:blur(18px);
+  color:white;
+  text-decoration:none;
+  font-size:24px;
+  box-shadow:0 15px 35px rgba(0,0,0,.35);
+  transition:.3s ease;
+}
+.social-icon:hover{
+  transform:translateY(-6px) scale(1.08);
+  background:linear-gradient(135deg,#2563EB,#38BDF8);
+}
+.social-icon svg{
+  width:25px;
+  height:25px;
+  fill:white;
+}
+.integration-card{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  flex-wrap:wrap;
+}
+.integration-card a{
+  color:white;
+  text-decoration:none;
+}
+.integration-btn{
+  display:inline-block;
+  padding:12px 20px;
+  border-radius:12px;
+  background:rgba(37,99,235,.35);
+  border:1px solid rgba(96,165,250,.45);
+  font-weight:800;
+}
+@media(max-width:700px){
+  .floating-social{
+    right:14px;
+    bottom:18px;
+    top:auto;
+    transform:none;
+    flex-direction:row;
+  }
+  .social-icon{
+    width:46px;
+    height:46px;
+  }
+}
+
+
+#particle-canvas{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:-3;
+  background:#0F172A;
+}
+body::before{
+  z-index:-2;
+}
+.animated-bg{
+  z-index:-1;
+}
+
+
+#preloader{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(37,99,235,.35), transparent 28%),
+    radial-gradient(circle at 70% 70%, rgba(56,189,248,.25), transparent 30%),
+    #0F172A;
+  transition:opacity .8s ease, visibility .8s ease;
+}
+#preloader.hide{
+  opacity:0;
+  visibility:hidden;
+}
+.loader-card{
+  width:min(420px,88%);
+  padding:38px 28px;
+  text-align:center;
+  border-radius:28px;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.18);
+  backdrop-filter:blur(22px);
+  box-shadow:0 30px 90px rgba(0,0,0,.5);
+}
+.loader-logo{
+  width:82px;
+  height:82px;
+  margin:0 auto 20px;
+  border-radius:24px;
+  display:grid;
+  place-items:center;
+  font-size:30px;
+  font-weight:900;
+  color:white;
+  background:linear-gradient(135deg,#2563EB,#38BDF8);
+  box-shadow:0 0 35px rgba(56,189,248,.55);
+  animation:pulseLogo 1.8s ease-in-out infinite;
+}
+.loader-title{
+  font-size:24px;
+  font-weight:900;
+  margin-bottom:8px;
+}
+.loader-subtitle{
+  color:#CBD5E1;
+  font-size:14px;
+  margin-bottom:24px;
+}
+.loading-bar{
+  height:10px;
+  width:100%;
+  border-radius:999px;
+  background:rgba(255,255,255,.12);
+  overflow:hidden;
+}
+.loading-bar span{
+  display:block;
+  height:100%;
+  width:45%;
+  border-radius:999px;
+  background:linear-gradient(90deg,#2563EB,#38BDF8,#10B981);
+  animation:loadingMove 1.4s ease-in-out infinite;
+}
+@keyframes loadingMove{
+  0%{transform:translateX(-120%)}
+  100%{transform:translateX(260%)}
+}
+@keyframes pulseLogo{
+  0%,100%{transform:scale(1);box-shadow:0 0 35px rgba(56,189,248,.55)}
+  50%{transform:scale(1.08);box-shadow:0 0 60px rgba(56,189,248,.85)}
+}
+
+
+.cert-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:22px;
+}
+.cert-card-pro{
+  position:relative;
+  min-height:210px;
+  padding:26px;
+  border-radius:28px;
+  overflow:hidden;
+  background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(255,255,255,.05));
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:0 20px 55px rgba(0,0,0,.35);
+  backdrop-filter:blur(22px);
+  transition:.35s ease;
+}
+.cert-card-pro:hover{
+  transform:translateY(-12px) scale(1.02);
+  border-color:rgba(56,189,248,.7);
+  box-shadow:0 0 35px rgba(56,189,248,.25),0 30px 70px rgba(0,0,0,.45);
+}
+.cert-card-pro::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:linear-gradient(135deg,transparent,rgba(56,189,248,.35),transparent);
+  opacity:0;
+  transition:.35s ease;
+}
+.cert-card-pro:hover::before{opacity:1}
+.cert-content{
+  position:relative;
+  z-index:2;
+}
+.cert-logo{
+  width:64px;
+  height:64px;
+  border-radius:20px;
+  display:grid;
+  place-items:center;
+  font-size:22px;
+  font-weight:900;
+  color:white;
+  margin-bottom:18px;
+  background:linear-gradient(135deg,#2563EB,#38BDF8);
+  box-shadow:0 0 30px rgba(56,189,248,.4);
+}
+.cert-title{
+  font-size:18px;
+  font-weight:900;
+  margin-bottom:10px;
+}
+.cert-issuer{
+  color:#CBD5E1;
+  font-size:14px;
+  margin-bottom:16px;
+}
+.cert-badge{
+  display:inline-block;
+  padding:7px 12px;
+  border-radius:999px;
+  background:rgba(16,185,129,.20);
+  border:1px solid rgba(16,185,129,.45);
+  color:#A7F3D0;
+  font-size:12px;
+  font-weight:800;
+}
+.cert-card-pro svg{
+  width:40px;
+  height:40px;
+  fill:white;
+}
+
+
+.cert-logo.logo-img{
+  background:rgba(255,255,255,.95);
+  padding:12px;
+}
+.cert-logo.logo-img img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  filter:none;
+}
+
+/* Fixed certification logos: use inline SVG/text logos instead of external CDN images.
+   This prevents broken-image icons when a logo slug is unavailable or blocked. */
+.cert-logo.logo-svg{
+  background:rgba(255,255,255,.96);
+  padding:10px;
+}
+.cert-logo.logo-svg svg{
+  width:100%;
+  height:100%;
+  display:block;
+}
+.cert-logo.logo-svg text{
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  font-weight:900;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="preloader">
+  <div class="loader-card">
+    <div class="loader-logo">MI</div>
+    <div class="loader-title">Mustafa Ibrahim</div>
+    <div class="loader-subtitle">Loading IT Operations Portfolio</div>
+    <div class="loading-bar"><span></span></div>
+  </div>
+</div>
+
+<canvas id="particle-canvas"></canvas>
+
+<div class="floating-social">
+  <a class="social-icon" href="https://www.linkedin.com/in/mustafa-ibrahim-b72420152" target="_blank" title="LinkedIn" aria-label="LinkedIn">
+    <svg viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.1c.5-1 1.9-2.4 4-2.4 4.3 0 5.1 2.8 5.1 6.5V24h-4v-8.6c0-2.1 0-4.7-2.9-4.7s-3.3 2.2-3.3 4.5V24h-4V8z"/></svg>
+  </a>
+  <a class="social-icon" href="https://github.com/" target="_blank" title="GitHub" aria-label="GitHub">
+    <svg viewBox="0 0 24 24"><path d="M12 .5C5.73.5.75 5.48.75 11.75c0 4.97 3.22 9.18 7.69 10.67.56.1.76-.24.76-.54v-2.1c-3.13.68-3.79-1.35-3.79-1.35-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.73 1.16 1.73 1.16 1 .1 2.62.7 3.26.02.1-.73.39-1.22.71-1.5-2.5-.28-5.13-1.25-5.13-5.56 0-1.23.44-2.23 1.16-3.02-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.1 1.15.9-.25 1.86-.38 2.82-.38.96 0 1.92.13 2.82.38 2.15-1.45 3.1-1.15 3.1-1.15.61 1.55.23 2.7.11 2.98.72.79 1.16 1.79 1.16 3.02 0 4.32-2.64 5.27-5.15 5.55.4.35.76 1.04.76 2.1v3.11c0 .3.2.65.77.54 4.46-1.49 7.68-5.7 7.68-10.67C23.25 5.48 18.27.5 12 .5z"/></svg>
+  </a>
+</div>
+
+<div class="animated-bg">
+  <div class="blob one"></div>
+  <div class="blob two"></div>
+  <div class="blob three"></div>
+</div>
+
+<nav>
+  <div class="logo">Mustafa Ibrahim</div>
+  <div>
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-card">
+    <h1><span class="gradient-text">Mustafa Ibrahim</span></h1>
+    <p><strong>IT Support & Operations Leader</strong></p>
+    <p>Transforming IT Operations through Automation, Security, Cloud Administration, Service Excellence, and Modern Workplace Support.</p>
+    <div class="hero-actions">
+      <a class="btn" href="#projects">View Projects</a>
+      <a class="btn secondary" href="#contact">Contact Me</a>
+      <a class="btn" href="https://mustafa-443.github.io/CV/Mustafa_Ibrahim_CV.pdf" target="_blank" rel="noopener">Download CV</a>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <h2>About Me</h2>
+  <div class="glass-card reveal">
+    <p>Results-driven IT Support & Operations Leader with 10+ years of experience across UAE government-adjacent, ports, and non-profit sectors. Skilled in Microsoft 365, Google Workspace, Azure, Intune, JumpCloud MDM, endpoint security, ITIL-aligned service operations, and enterprise IT projects.</p>
+  </div>
+</section>
+
+<section>
+  <div class="grid">
+    <div class="glass-card stat reveal"><strong>10+</strong>Years Experience</div>
+    <div class="glass-card stat reveal"><strong>500+</strong>Users Supported</div>
+    <div class="glass-card stat reveal"><strong>ITIL</strong>Service Operations</div>
+    <div class="glass-card stat reveal"><strong>Cloud</strong>M365 & Google Workspace</div>
+  </div>
+</section>
+
+<section id="experience">
+  <h2>Professional Experience</h2>
+  <div class="timeline">
+    <div class="glass-card reveal">
+      <h3>IT Support & Operations Lead</h3>
+      <p>ADI Foundation | Abu Dhabi | 2026 – Present</p>
+      <p>Leading IT support operations, cloud administration, vendor management, asset lifecycle, documentation, and major infrastructure projects.</p>
+    </div>
+    <div class="glass-card reveal">
+      <h3>Senior IT Technical Support Specialist</h3>
+      <p>AD Ports Group | 2024 – 2026</p>
+      <p>Delivered onsite and remote support, Microsoft 365 licensing, Intune enrollment, endpoint compliance, and executive AV support.</p>
+    </div>
+    <div class="glass-card reveal">
+      <h3>IT Service Desk Specialist</h3>
+      <p>Al Ain Distribution Company | 2019 – 2024</p>
+      <p>Managed ITSM ticket lifecycle, SLA compliance, BitLocker, Entra ID, Intune, asset inventory, onboarding, and knowledge documentation.</p>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <h2>Featured Projects</h2>
+  <div class="grid">
+    <div class="glass-card project reveal"><h3>Microsoft 365 to Google Workspace Migration</h3><p>User migration, onboarding, data synchronization, and post-migration support.</p></div>
+    <div class="glass-card project reveal"><h3>JumpCloud MDM Deployment</h3><p>Device enrollment, application deployment, user management, and endpoint policy enforcement.</p></div>
+    <div class="glass-card project reveal"><h3>Executive Meeting Room Modernization</h3><p>Smart AV, room booking, meeting room utilization, and executive experience improvement.</p></div>
+    <div class="glass-card project reveal"><h3>Access Control Rollout</h3><p>User registration, compliance records, security monitoring, and access lifecycle management.</p></div>
+    <div class="glass-card project reveal"><h3>CCTV Implementation</h3><p>Testing, validation, quality checks, and operational readiness.</p></div>
+  </div>
+</section>
+
+<section id="skills">
+  <h2>Technical Skills</h2>
+  <div class="glass-card reveal">
+<div class="progress-wrap"><div class="progress-title">Microsoft 365</div><div class="bar"><div class="fill" data-width="95%"></div></div></div>
+<div class="progress-wrap"><div class="progress-title">Google Workspace</div><div class="bar"><div class="fill" data-width="95%"></div></div></div>
+<div class="progress-wrap"><div class="progress-title">Azure / Intune</div><div class="bar"><div class="fill" data-width="90%"></div></div></div>
+<div class="progress-wrap"><div class="progress-title">JumpCloud MDM</div><div class="bar"><div class="fill" data-width="90%"></div></div></div>
+<hr style="border-color:rgba(255,255,255,.1);margin:24px 0">
+<span class="tag">Microsoft 365</span>
+    <span class="tag">Google Workspace</span>
+    <span class="tag">Azure</span>
+    <span class="tag">Entra ID</span>
+    <span class="tag">Intune</span>
+    <span class="tag">JumpCloud MDM</span>
+    <span class="tag">ITIL V4</span>
+    <span class="tag">FortiGate</span>
+    <span class="tag">Cisco</span>
+    <span class="tag">Endpoint Security</span>
+    <span class="tag">IAM</span>
+    <span class="tag">BitLocker</span>
+    <span class="tag">Vendor Management</span>
+    <span class="tag">Asset Management</span>
+    <span class="tag">Google Apps Script</span>
+    <span class="tag">PowerShell</span>
+  </div>
+</section>
+
+
+<section>
+  <h2>Certifications</h2>
+  <div class="cert-grid">
+
+    <div class="cert-card-pro reveal">
+      <div class="cert-content">
+        <div class="cert-logo logo-svg" aria-label="ITIL logo">
+          <svg viewBox="0 0 100 100" role="img" aria-label="ITIL logo">
+            <rect width="100" height="100" rx="22" fill="#ffffff"/>
+            <text x="50" y="58" text-anchor="middle" font-size="31" fill="#0F172A">ITIL</text>
+          </svg>
+        </div>
+        <div class="cert-title">ITIL V4 Foundation</div>
+        <div class="cert-issuer">Issuer: AXELOS / PeopleCert</div>
+        <span class="cert-badge">Service Management</span>
+      </div>
+    </div>
+
+    <div class="cert-card-pro reveal">
+      <div class="cert-content">
+        <div class="cert-logo logo-svg" aria-label="Microsoft logo">
+          <svg viewBox="0 0 100 100" role="img" aria-label="Microsoft logo">
+            <rect width="100" height="100" rx="22" fill="#ffffff"/>
+            <rect x="20" y="20" width="26" height="26" fill="#F25022"/>
+            <rect x="54" y="20" width="26" height="26" fill="#7FBA00"/>
+            <rect x="20" y="54" width="26" height="26" fill="#00A4EF"/>
+            <rect x="54" y="54" width="26" height="26" fill="#FFB900"/>
+          </svg>
+        </div>
+        <div class="cert-title">Azure Fundamentals AZ-900</div>
+        <div class="cert-issuer">Issuer: Microsoft</div>
+        <span class="cert-badge">Cloud Fundamentals</span>
+      </div>
+    </div>
+
+    <div class="cert-card-pro reveal">
+      <div class="cert-content">
+        <div class="cert-logo logo-svg" aria-label="AWS logo">
+          <svg viewBox="0 0 100 100" role="img" aria-label="AWS logo">
+            <rect width="100" height="100" rx="22" fill="#ffffff"/>
+            <text x="50" y="50" text-anchor="middle" font-size="31" fill="#232F3E">AWS</text>
+            <path d="M27 66 C43 78, 62 78, 76 65" fill="none" stroke="#FF9900" stroke-width="6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="cert-title">AWS Cloud Practitioner</div>
+        <div class="cert-issuer">Issuer: Amazon Web Services</div>
+        <span class="cert-badge">Cloud</span>
+      </div>
+    </div>
+
+    <div class="cert-card-pro reveal">
+      <div class="cert-content">
+        <div class="cert-logo logo-svg" aria-label="Fortinet logo">
+          <svg viewBox="0 0 100 100" role="img" aria-label="Fortinet logo">
+            <rect width="100" height="100" rx="22" fill="#ffffff"/>
+            <text x="50" y="57" text-anchor="middle" font-size="20" fill="#DA291C">FORTINET</text>
+          </svg>
+        </div>
+        <div class="cert-title">FortiGate Administrator NSE 4</div>
+        <div class="cert-issuer">Issuer: Fortinet</div>
+        <span class="cert-badge">Network Security</span>
+      </div>
+    </div>
+
+    <div class="cert-card-pro reveal">
+      <div class="cert-content">
+        <div class="cert-logo logo-svg" aria-label="Palo Alto Networks logo">
+          <svg viewBox="0 0 100 100" role="img" aria-label="Palo Alto Networks logo">
+            <rect width="100" height="100" rx="22" fill="#ffffff"/>
+            <text x="50" y="44" text-anchor="middle" font-size="18" fill="#0F172A">PALO</text>
+            <text x="50" y="66" text-anchor="middle" font-size="18" fill="#0F172A">ALTO</text>
+          </svg>
+        </div>
+        <div class="cert-title">PCNSA</div>
+        <div class="cert-issuer">Issuer: Palo Alto Networks</div>
+        <span class="cert-badge">Firewall Security</span>
+      </div>
+    </div>
+
+    <div class="cert-card-pro reveal">
+      <div class="cert-content">
+        <div class="cert-logo logo-svg" aria-label="F5 logo">
+          <svg viewBox="0 0 100 100" role="img" aria-label="F5 logo">
+            <rect width="100" height="100" rx="22" fill="#ffffff"/>
+            <text x="50" y="61" text-anchor="middle" font-size="42" fill="#E2231A">F5</text>
+          </svg>
+        </div>
+        <div class="cert-title">F5 101</div>
+        <div class="cert-issuer">Issuer: F5</div>
+        <span class="cert-badge">Application Delivery</span>
+      </div>
+    </div>
+
+    <div class="cert-card-pro reveal">
+      <div class="cert-content">
+        <div class="cert-logo logo-svg" aria-label="Cisco logo">
+          <svg viewBox="0 0 100 100" role="img" aria-label="Cisco logo">
+            <rect width="100" height="100" rx="22" fill="#ffffff"/>
+            <g stroke="#1BA0D7" stroke-width="5" stroke-linecap="round">
+              <line x1="26" y1="42" x2="26" y2="58"/><line x1="36" y1="34" x2="36" y2="66"/>
+              <line x1="46" y1="28" x2="46" y2="72"/><line x1="56" y1="34" x2="56" y2="66"/>
+              <line x1="66" y1="42" x2="66" y2="58"/>
+            </g>
+            <text x="50" y="88" text-anchor="middle" font-size="16" fill="#0F172A">CISCO</text>
+          </svg>
+        </div>
+        <div class="cert-title">CCNP Enterprise</div>
+        <div class="cert-issuer">Issuer: Cisco</div>
+        <span class="cert-badge">Enterprise Networking</span>
+      </div>
+    </div>
+
+    <div class="cert-card-pro reveal">
+      <div class="cert-content">
+        <div class="cert-logo logo-svg" aria-label="Cisco logo">
+          <svg viewBox="0 0 100 100" role="img" aria-label="Cisco logo">
+            <rect width="100" height="100" rx="22" fill="#ffffff"/>
+            <g stroke="#1BA0D7" stroke-width="5" stroke-linecap="round">
+              <line x1="26" y1="42" x2="26" y2="58"/><line x1="36" y1="34" x2="36" y2="66"/>
+              <line x1="46" y1="28" x2="46" y2="72"/><line x1="56" y1="34" x2="56" y2="66"/>
+              <line x1="66" y1="42" x2="66" y2="58"/>
+            </g>
+            <text x="50" y="88" text-anchor="middle" font-size="16" fill="#0F172A">CISCO</text>
+          </svg>
+        </div>
+        <div class="cert-title">CCNA Routing & Switching</div>
+        <div class="cert-issuer">Issuer: Cisco</div>
+        <span class="cert-badge">Networking</span>
+      </div>
+    </div>
+
+    <div class="cert-card-pro reveal">
+      <div class="cert-content">
+        <div class="cert-logo logo-svg" aria-label="ISC2 logo">
+          <svg viewBox="0 0 100 100" role="img" aria-label="ISC2 logo">
+            <rect width="100" height="100" rx="22" fill="#ffffff"/>
+            <text x="50" y="58" text-anchor="middle" font-size="30" fill="#0F172A">ISC²</text>
+          </svg>
+        </div>
+        <div class="cert-title">Certified in Cybersecurity</div>
+        <div class="cert-issuer">Issuer: ISC2</div>
+        <span class="cert-badge">Cybersecurity</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<section id="social">
+  <h2>GitHub & LinkedIn</h2>
+  <div class="grid">
+    <div class="glass-card reveal integration-card">
+      <div>
+        <h3>LinkedIn Profile</h3>
+        <p>Connect with me professionally and view my career updates, experience, and IT leadership content.</p>
+      </div>
+      <a class="integration-btn" href="https://www.linkedin.com/in/mustafa-ibrahim-b72420152" target="_blank">Open LinkedIn</a>
+    </div>
+
+    <div class="glass-card reveal integration-card">
+      <div>
+        <h3>GitHub Profile</h3>
+        <p>Use this section to showcase automation scripts, Google Apps Script projects, Python tools, and IT workflow solutions.</p>
+      </div>
+      <a class="integration-btn" href="https://github.com/" target="_blank">Open GitHub</a>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <div class="glass-card reveal">
+    <p><strong>Location:</strong> Abu Dhabi, UAE</p>
+    <p><strong>Email:</strong> mu.mohammed5522@gmail.com</p>
+    <p><strong>LinkedIn:</strong> linkedin.com/in/mustafa-ibrahim-b72420152</p>
+  </div>
+</section>
+
+<footer>
+  © 2026 Mustafa Ibrahim | IT Support & Operations Portfolio
+</footer>
+
+
+<script>
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(e=>{
+ if(e.isIntersecting){
+   e.target.classList.add('visible');
+   e.target.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.width);
+ }
+});
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+
+
+<script>
+const canvas = document.getElementById("particle-canvas");
+const ctx = canvas.getContext("2d");
+
+let width, height;
+let particles = [];
+let mouse = { x: null, y: null };
+
+function resizeCanvas(){
+  width = canvas.width = window.innerWidth;
+  height = canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+
+window.addEventListener("mousemove", e => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+});
+
+window.addEventListener("mouseleave", () => {
+  mouse.x = null;
+  mouse.y = null;
+});
+
+class Particle{
+  constructor(){
+    this.x = Math.random() * width;
+    this.y = Math.random() * height;
+    this.z = Math.random() * 2 + 0.5;
+    this.size = Math.random() * 2.2 + 0.8;
+    this.speedX = (Math.random() - 0.5) * this.z;
+    this.speedY = (Math.random() - 0.5) * this.z;
+  }
+
+  update(){
+    this.x += this.speedX;
+    this.y += this.speedY;
+
+    if(this.x < 0 || this.x > width) this.speedX *= -1;
+    if(this.y < 0 || this.y > height) this.speedY *= -1;
+
+    if(mouse.x && mouse.y){
+      const dx = this.x - mouse.x;
+      const dy = this.y - mouse.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      if(distance < 130){
+        this.x += dx / distance * 1.2;
+        this.y += dy / distance * 1.2;
+      }
+    }
+  }
+
+  draw(){
+    const glow = 0.35 + this.z / 4;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size * this.z, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(96,165,250,${glow})`;
+    ctx.shadowBlur = 18;
+    ctx.shadowColor = "rgba(56,189,248,.9)";
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  }
+}
+
+function initParticles(){
+  particles = [];
+  const count = Math.min(130, Math.floor((width * height) / 12000));
+  for(let i = 0; i < count; i++){
+    particles.push(new Particle());
+  }
+}
+initParticles();
+window.addEventListener("resize", initParticles);
+
+function drawConnections(){
+  for(let i = 0; i < particles.length; i++){
+    for(let j = i + 1; j < particles.length; j++){
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if(distance < 135){
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(56,189,248,${1 - distance / 135})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+function animateParticles(){
+  ctx.clearRect(0, 0, width, height);
+
+  const gradient = ctx.createRadialGradient(width * .5, height * .3, 0, width * .5, height * .3, width);
+  gradient.addColorStop(0, "rgba(37,99,235,.16)");
+  gradient.addColorStop(.45, "rgba(15,23,42,.45)");
+  gradient.addColorStop(1, "rgba(15,23,42,1)");
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, width, height);
+
+  particles.forEach(p => {
+    p.update();
+    p.draw();
+  });
+
+  drawConnections();
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+</script>
+
+
+<script>
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    const preloader = document.getElementById("preloader");
+    if(preloader){ preloader.classList.add("hide"); }
+  }, 900);
+});
+</script>
+
+</body>
+</html>
